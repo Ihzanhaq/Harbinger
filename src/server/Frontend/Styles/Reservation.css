@@ -1,0 +1,153 @@
+/* General form control styling */
+.form-control {
+    width: 258.4px;
+    height: 77.6px;
+}
+
+/* Container for the registration form */
+.Regborder {
+    background-color: #e4cdb4;
+    position: relative; /* Ensure the container is positioned relative */
+    overflow: hidden; /* Hide overflowing content */
+}
+
+/* Input for numbers */
+.Num-Input {
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+    width: 301.6px;
+    height: 76px;
+    padding-right: 50px;
+}
+
+/* Button for finding tables */
+.find-table-button {
+    background-color: #014137;
+    border: 1px solid #ccc;
+    width: 100%;
+}
+
+.find-table-button:hover {
+    background-color: #000d0b;
+    border: none;
+    outline: none;
+}
+
+/* Button group for reservation navigation */
+.res-button-group {
+    width: 100%;
+}
+
+/* Buttons for reservation steps */
+.res-button {
+    width: 50%;
+    border: none;
+    height: 70px;
+    background-color: #e4cdb4;
+    font-weight: 600;
+    font-size: larger;
+    color: black;
+}
+
+.res-button:hover {
+    border-bottom: 4px solid #014137;
+    color: black;
+    background-color: none !important;
+}
+
+/* Styling for labels */
+.col label {
+    font-weight: 500;
+    color: black;
+}
+
+/* Underline for buttons */
+.button-under {
+    border-bottom: 4px solid #014137;
+}
+
+/* Input for names */
+.nameInput {
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+    width: 100%;
+    height: 76px;
+    padding-right: 50px;
+}
+
+.nameInput[type=text] {
+    padding-left: 20px;
+}
+
+.nameInput:focus {
+    outline: none;
+    border: 1px solid #8d8787;
+}
+
+/* Full-width row for reservation */
+.res-row {
+    width: 100%;
+}
+
+/* Header for reservation user */
+.Res-user-head {
+    color: #e4cdb4;
+    font-weight: 500;
+}
+
+/* Animation classes for component transitions */
+.slide-enter {
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+.slide-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 500ms, transform 500ms;
+}
+
+.slide-exit {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.slide-exit-active {
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: opacity 500ms, transform 500ms;
+}
+.Reservation-enter {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  
+  .Reservation-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 500ms, transform 500ms;
+  }
+  
+  .Reservation-exit {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .Reservation-exit-active {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 500ms, transform 500ms;
+  }
+  .res-container {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 500ms, transform 500ms;
+  }
+  
+  .res-container.loaded {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  

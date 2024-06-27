@@ -1,0 +1,28 @@
+.back{
+    background-color: #014137;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.footer{
+    background-color: #e4cdb4;
+}
+
+.footer p{
+    color: #014137;
+}
+.nav, .nav-scrolled {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transition: opacity 0.3s ease-in-out; /* Use opacity for transition */
+    z-index: 1000; /* Ensures the navbar is above other content */
+    opacity: 1; /* Start with full opacity */
+  }
+  
+  .nav-hide, .nav-scrolled-hide {
+    opacity: 0; /* Fade out to 0 opacity */
+  }
+  

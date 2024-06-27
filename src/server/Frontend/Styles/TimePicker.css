@@ -1,0 +1,30 @@
+.time-picker-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Align items horizontally in the center */
+    padding: 10px; /* Add padding for better spacing */
+    border-radius: 10px; /* Add some border-radius */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 0 4px 6px solid #014137;
+  }
+  
+  .time-select {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin-right: 10px;
+  }
+  
+  .separator {
+    font-size: 20px;
+    margin: 0 px;
+    color: black;
+    margin-right: 10px;
+  }
+  
+  .Num-Input:focus{
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 0 4px 6px solid #014137;
+  }

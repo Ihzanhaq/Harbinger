@@ -1,0 +1,47 @@
+.border{
+    border-radius: 20px;
+}
+
+.carousel-control-next, .carousel-control-prev {
+    width: 1%;
+}
+
+.footer-text{
+    font-size: medium;
+}
+
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+  
+  .animate {
+    opacity: 1;
+    transform: translateY(0);
+  }
+.animate-on-scroll h1,
+.animate-on-scroll h2,
+.animate-on-scroll h3,
+.animate-on-scroll h4,
+.animate-on-scroll h6 {
+  color: #e4cdb4; /* Font color adjustment for heading tags */
+}
+
+  .home-para{
+    font-size: large;
+  }
+
+  .slide-para1{
+    font-size: large;
+    color: black
+    ;
+  }
+  .slide-para2{
+    font-size: large;
+    color: white;
+  }
+  .slide-para3{
+    font-size: large;
+    color: white;
+  }

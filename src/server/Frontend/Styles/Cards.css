@@ -1,0 +1,60 @@
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.card {
+  width: 100%;
+  height: 400px; /* Increased height for each card */
+  position: relative;
+  overflow: hidden; /* Hide overflowing content */
+}
+
+.card:hover .card-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  color: white; /* Default text color */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.card-area {
+  position: relative; /* Ensure content inside card is positioned relative to the card */
+  z-index: 1; /* Ensure content is above overlay */
+  padding: 15px;
+}
+
+.custom-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: inherit; /* Inherit color from parent */
+}
+
+.custom-text {
+  font-size: 1rem;
+  line-height: 1.4;
+  color: inherit; /* Inherit color from parent */
+}

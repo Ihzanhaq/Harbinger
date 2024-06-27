@@ -1,0 +1,99 @@
+#header{
+    background-color: #e4cdb4;
+    top: 0 ;
+    width: 100%;
+    position: sticky; 
+    z-index: 5;
+}
+.opt{
+    text-decoration: none;
+    color: black;
+}
+
+.opt-a{
+    text-decoration: none;
+    color: white;
+}
+
+.nav-item:hover{
+    background-color: black;
+    opacity: 0.5;
+    border-radius: 5px;
+}
+
+.opt:hover{
+    color: white;
+} 
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding-left: 70px;
+    overflow: hidden;
+    text-align: center;
+    border-radius: 10px;
+    font-weight: 500;
+
+  }
+
+  
+li {
+    display: inline-block;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+  
+  li a {
+    display: block;
+    color: rgb(0, 0, 0);
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  /* Change the link color to #111 (black) on hover */
+  li a:hover {
+    background-color: #000000;
+    border-radius: 5px;
+    color: white;
+    padding: 14px 16px;
+  }
+
+  .active{
+    background-color: #000000;
+    border-radius: 5px;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+
+  }
+
+  .scrolled-nav{
+    text-align: right;
+  }
+  
+  .logo{
+    display: flex;
+    justify-content: center;
+  }
+
+.login {
+  background-color: #e4cdb4; 
+  color: #014137; 
+  border: 2px solid #014137;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  float: inline-end;
+  border-radius: 5px;
+  font-weight: 500;
+}
+
+.login:hover {
+  background-color: #014137; /* Green */
+  color: white;
+  border: 2px solid #014137;
+}
