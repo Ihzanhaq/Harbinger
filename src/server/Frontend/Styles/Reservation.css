@@ -151,3 +151,17 @@
     transform: translateY(0);
   }
   
+  .login-prompt p {
+    color: #014137; /* Change font color for the login prompt */
+  }
+  .login-prompt{
+    text-align: center;
+    padding: 10px;
+    margin: 20px;
+  }
+  .login-prompt .login {
+    float: none;
+    margin: 0 auto; /* Center the login button */
+
+  }
+  

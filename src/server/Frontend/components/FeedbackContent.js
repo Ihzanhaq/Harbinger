@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import '../Styles/Feedback.css'; // Import the CSS file
 
-function FeedbackContent() {
-  const [name, setName] = useState('');
+function FeedbackContent({ username }) {
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -12,7 +11,7 @@ function FeedbackContent() {
     setError('');
     setSuccess('');
 
-    const feedback = { name, message };
+    const feedback = { name: username, message };
 
     try {
       const response = await fetch('http://localhost:8081/feedback', {
@@ -26,7 +25,6 @@ function FeedbackContent() {
       const data = await response.json();
       if (response.ok) {
         setSuccess(data.message);
-        setName('');
         setMessage('');
       } else {
         setError(data.error);
@@ -47,10 +45,8 @@ function FeedbackContent() {
               type="text" 
               id="name" 
               className="form-input"
-              value={name} 
-              placeholder='Enter your name'
-              onChange={(e) => setName(e.target.value)} 
-              required 
+              value={username} 
+              readOnly 
             />
           </div>
         </div>
@@ -76,4 +72,3 @@ function FeedbackContent() {
 }
 
 export default FeedbackContent;
-

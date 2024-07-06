@@ -5,7 +5,7 @@ import FeedbackContent from '../components/FeedbackContent';
 import { CSSTransition } from 'react-transition-group';
 import '../Styles/Feedback.css'; // Import the CSS file for the animation
 
-function Feedbacks() {
+function Feedbacks({username}) {
   const [inProp, setInProp] = useState(false);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ function Feedbacks() {
   return (
     <div className='Dbg'>
       <CSSTransition in={inProp} timeout={500} classNames="feedback">
-        <FeedbackContent/>
+        <FeedbackContent username={username}/>
       </CSSTransition>
     </div>
   );

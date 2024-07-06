@@ -40,6 +40,30 @@ app.post('/react', (req, res) => {
         }
     });
 });
+// Fetch both pending and accepted reservations for a specific user
+app.get('/data/:username', (req, res) => {
+    const { username } = req.params;
+    const query = `
+        SELECT id, num, date, time, name, phone, request, 'pending' as status 
+        FROM pending_reservations
+        WHERE name = ?
+        UNION
+        SELECT id, num, date, time, name, phone, request, 'accepted' as status 
+        FROM reservations
+        WHERE name = ?
+    `;
+    db.query(query, [username, username], (err, results) => {
+        if (err) {
+            console.error('Error fetching reservations:', err);
+            res.status(500).send(err);
+        } else {
+            console.log('Fetched reservations for user:', username, results); // Log results
+            res.json(results);
+        }
+    });
+});
+
+
 
 app.post('/login', (req, res) => {
     const sql = 'SELECT * FROM users WHERE username= ? AND password= ?';
@@ -301,7 +325,6 @@ app.get('/reservations/count', (req, res) => {
         res.json({ availableTables });
     });
 });
-
 app.post('/feedback', (req, res) => {
     const { name, message } = req.body;
 

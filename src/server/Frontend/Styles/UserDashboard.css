@@ -1,0 +1,62 @@
+.user-dashboard {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #e4cdb4;
+  border-radius: 10px;
+}
+
+.reservation-list {
+  margin-top: 20px;
+}
+
+.reservation-card {
+  background-color: #004137;
+  border: 1px solid #e4cdb4;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.reservation-card:hover {
+  background-color: #e4cdb4;
+  border: 1px solid #004137;
+  color: #004137;
+}
+
+.reservation-card:hover .reservation-details p,
+.reservation-card:hover .reservation-timestamp,
+.reservation-card:hover .confirmed-badge,
+.reservation-card:hover .pending-badge {
+  color: #004137;
+}
+.reservation-timestamp{
+  color: #e4cdb4;
+}
+.reservation-details {
+  font-size: 18px;
+  color: #e4cdb4;
+}
+
+.reservation-details p {
+  margin: 5px 0;
+}
+
+.confirmed-badge {
+  color: #2ecc71;
+  font-weight: bold;
+}
+
+.pending-badge {
+  color: #f39c12;
+  font-weight: bold;
+}
+
+
+.no-reservations-message {
+  text-align: center;
+  color: #014137;
+  font-size: 20px;
+  font-weight: bold;
+}

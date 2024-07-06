@@ -4,14 +4,20 @@ import '../Styles/Nav.css'
 import {
     NavLink,
     useLocation,
-    Link
+    Link,
+    useNavigate
   } from "react-router-dom";
 
  
 
-function NavScrolled() {
+function NavScrolled({isLoggedIn,setIsLoggedIn}) {
+  const handleLogout =()=>{
+    setIsLoggedIn(false)
+    navigate('/Login')
+  }
 
-  const location= useLocation();
+  const navigate= useNavigate();
+  const location=useLocation();
    
 
   return (
@@ -28,15 +34,25 @@ function NavScrolled() {
         <li id="scrolled-item" className={location.pathname==='/Menu' ? 'active': ''}><NavLink to="/Menu" >Menu</NavLink>
         </li>
 
-        <li id="scrolled-item" className={location.pathname==='/Feedbacks' ? 'active': ''}><NavLink to="/Feedbacks" >Feedbacks</NavLink>
-        </li>
+        {isLoggedIn && (
+          <li id="scrolled-item" className={location.pathname === '/Feedbacks' ? 'active' : ''}>
+            <NavLink to="/Feedbacks">Feedbacks</NavLink>
+          </li>
+        )}
 
         <li id="scrolled-item" className={location.pathname==='/Reservation' ? 'active': ''}><NavLink to="/Reservation" >Reservation</NavLink>
         </li>
 
         <li id="scrolled-item" className={location.pathname==='/About' ? 'active': ''}><NavLink to="/About" >About</NavLink>
         </li>
-        <Link to='/Login' className='px-3'><button type="button" className='login px-4'>Login</button></Link>
+        {isLoggedIn ? (
+          <>
+            <li id="sidebar" className={location.pathname === '/UserDashboard' ? 'active' : ''}><NavLink to="/UserDashboard">User Dashboard</NavLink></li>
+            <button type="button" className='login' onClick={handleLogout}>Logout</button>
+          </>
+        ) : (
+          <Link to='/Login'><button type="button" className='login'>Login</button></Link>
+        )}
         </ul>
     </div>
   )

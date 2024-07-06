@@ -5,7 +5,7 @@ import UserRegistration from '../components/UserRegistration';
 
 const AdminLog = React.lazy(() => import('../components/AdminLog'));
 
-function Login({ setNavbar }) {
+function Login({ setNavbar,setIsLoggedIn,setUsername,username }) {
   const [loaded, setLoaded] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [showAdminLogin, setShowAdminLogin] = useState(false);
@@ -53,6 +53,9 @@ function Login({ setNavbar }) {
           setIsAdmin={setIsAdmin}
           handleAdminLoginClick={handleAdminLoginClick}
           handleUserRegistrationClick={handleUserRegistrationClick}
+          setIsLoggedIn={setIsLoggedIn}
+          setUsername={setUsername}
+          username={username}
         />
       )}
     </div>

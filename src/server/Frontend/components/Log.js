@@ -5,8 +5,7 @@
   import { useNavigate } from "react-router-dom";
   import axios from "axios";
 
-  function Log({ isAdmin, setIsAdmin, handleAdminLoginClick, handleUserRegistrationClick }) {
-    const [username, setUsername] = useState('');
+  function Log({ isAdmin, setIsAdmin,setIsLoggedIn, handleAdminLoginClick, handleUserRegistrationClick,setUsername,username }) {
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({});
     const [status, setStatus] = useState(undefined);
@@ -29,6 +28,7 @@
         axios.post('http://localhost:8081/login', { username, password })
           .then(res => {
             if (res.data === 'Success') {
+              setIsLoggedIn(true)
               if (isAdmin) {
                 navigate('/Admin');
               } else {

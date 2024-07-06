@@ -13,11 +13,13 @@ import Login from './server/Frontend/Pages/Login';
 import Admin from './server/Frontend/Pages/Admin';
 import Feedbacks from './server/Frontend/Pages/Feedbacks';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import UserDashboard from './server/Frontend/Pages/UserDashboard';
 
 function App() {
   const [navbar, setNavbar] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const location = useLocation();
+  const [username, setUsername] = useState('');
 
   useEffect(() => {
     // Logic to determine login status on initial load (if needed)
@@ -57,10 +59,10 @@ function App() {
       {!isAdminPage && (
         <>
           <div className={navbar ? 'nav-hide' : 'nav'}>
-            <Nav isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+            <Nav setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
           </div>
           <div className={navbar ? 'nav-scrolled' : 'nav-scrolled-hide'}>
-            <NavScrolled isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+            <NavScrolled setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
           </div>
         </>
       )}
@@ -69,11 +71,12 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/Gallery" element={<Users />} />
         <Route path="/Menu" element={<Menu navbar={navbar}/>} />
-        <Route path="/Feedbacks" element={<Feedbacks />} />
-        <Route path="/Reservation" element={<Reservation />} />
+        <Route path="/Feedbacks" element={<Feedbacks username={username}/>} />
+        <Route path="/Reservation" element={<Reservation username={username} isLoggedIn={isLoggedIn} />} />
         <Route path="/About" element={<About />} />
-        <Route path="/Login" element={<Login isLoggedIn={isLoggedIn} handleLogin={handleLogin} />} />
+        <Route path="/Login" element={<Login username={username} setUsername={setUsername} setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} handleLogin={handleLogin} />} />
         <Route path="/Admin/*" element={<Admin />} />
+        <Route path="/UserDashboard" element={<UserDashboard username={username}/>} />
       </Routes>
       </div>
       <footer className=''>
