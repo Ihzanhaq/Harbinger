@@ -19,6 +19,17 @@ function UserDashboard({ username }) {
     }
   }, [username]);
 
+  const handleRemove = (id) => {
+    axios.delete(`http://localhost:8081/data/${id}`)
+      .then(response => {
+        console.log('Reservation removed:', response.data);
+        setReservations(reservations.filter(reservation => reservation.id !== id));
+      })
+      .catch(error => {
+        console.error('Error removing reservation:', error);
+      });
+  };
+
   return (
     <div className="user-dashboard">
       {reservations.length > 0 ? (
@@ -27,6 +38,12 @@ function UserDashboard({ username }) {
           <div className="reservation-list">
             {reservations.map(reservation => (
               <div key={reservation.id} className="reservation-card">
+                <button
+                  className="remove-button"
+                  onClick={() => handleRemove(reservation.id)}
+                >
+                  &times;
+                </button>
                 <div className="reservation-details">
                   <p><strong>Date:</strong> {reservation.date}</p>
                   <p><strong>Time:</strong> {reservation.time}</p>
@@ -36,6 +53,9 @@ function UserDashboard({ username }) {
                   )}
                   {reservation.status === 'pending' && (
                     <p className="pending-badge">Pending</p>
+                  )}
+                  {reservation.status === 'declined' && (
+                    <p className="declined-badge">Declined</p>
                   )}
                 </div>
                 <div className="reservation-timestamp">

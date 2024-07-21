@@ -42,9 +42,9 @@ app.post('/react', (req, res) => {
 });
 // Fetch both pending and accepted reservations for a specific user
 app.get('/data/:username', (req, res) => {
-    const { username } = req.params;
+    const username = req.params.username;
     const query = `
-        SELECT id, num, date, time, name, phone, request, 'pending' as status 
+        SELECT id, num, date, time, name, phone, request, status 
         FROM pending_reservations
         WHERE name = ?
         UNION
@@ -54,10 +54,8 @@ app.get('/data/:username', (req, res) => {
     `;
     db.query(query, [username, username], (err, results) => {
         if (err) {
-            console.error('Error fetching reservations:', err);
             res.status(500).send(err);
         } else {
-            console.log('Fetched reservations for user:', username, results); // Log results
             res.json(results);
         }
     });
@@ -96,7 +94,7 @@ app.post('/user/register', (req, res) => {
 // Fetch both pending and accepted reservations
 app.get('/data', (req, res) => {
     const query = `
-        SELECT id, num, date, time, name, phone, request, 'pending' as status FROM pending_reservations
+        SELECT id, num, date, time, name, phone, request, status FROM pending_reservations
         UNION
         SELECT id, num, date, time, name, phone, request, 'accepted' as status FROM reservations
     `;
@@ -110,34 +108,72 @@ app.get('/data', (req, res) => {
 });
 
 
-app.delete('/data/:id', (req, res) => {
+app.put('/data/:id', (req, res) => {
     const id = req.params.id;
-    const deleteQuery1 = 'DELETE FROM reservations WHERE id = ?';
-    const deleteQuery2 = 'DELETE FROM pending_reservations WHERE id = ?';
+    const { status } = req.body;
 
-    db.query(deleteQuery1, [id], (err1, result1) => {
-        if (err1) {
-            console.error('Error deleting reservation:', err1);
-            return res.status(500).json({ error: 'Failed to delete reservation' });
-        }
+    if (!id || !status) {
+        return res.status(400).json({ error: 'ID and status are required' });
+    }
 
-        if (result1.affectedRows === 0) {
-            db.query(deleteQuery2, [id], (err2, result2) => {
-                if (err2) {
-                    console.error('Error deleting pending reservation:', err2);
-                    return res.status(500).json({ error: 'Failed to delete reservation' });
+    if (status === 'accepted') {
+        const insertQuery = `
+            INSERT INTO reservations (id, num, date, time, name, phone, request)
+            SELECT id, num, date, time, name, phone, request
+            FROM pending_reservations
+            WHERE id = ?
+        `;
+        const deleteQuery = 'DELETE FROM pending_reservations WHERE id = ?';
+
+        db.beginTransaction(err => {
+            if (err) {
+                return res.status(500).json({ error: 'Transaction error' });
+            }
+
+            db.query(insertQuery, [id], (insertErr, insertResult) => {
+                if (insertErr) {
+                    return db.rollback(() => {
+                        console.error('Error moving reservation:', insertErr);
+                        res.status(500).json({ error: 'Internal server error' });
+                    });
                 }
 
-                if (result2.affectedRows === 0) {
-                    return res.status(404).json({ error: 'Reservation not found' });
-                }
+                db.query(deleteQuery, [id], (deleteErr, deleteResult) => {
+                    if (deleteErr) {
+                        return db.rollback(() => {
+                            console.error('Error deleting pending reservation:', deleteErr);
+                            res.status(500).json({ error: 'Internal server error' });
+                        });
+                    }
 
-                res.status(200).json({ message: 'Pending reservation deleted successfully' });
+                    db.commit(commitErr => {
+                        if (commitErr) {
+                            return db.rollback(() => {
+                                console.error('Transaction commit error:', commitErr);
+                                res.status(500).json({ error: 'Internal server error' });
+                            });
+                        }
+
+                        res.status(200).json({ message: 'Reservation status updated successfully' });
+                    });
+                });
             });
-        } else {
-            res.status(200).json({ message: 'Reservation deleted successfully' });
-        }
-    });
+        });
+    } else if (status === 'declined') {
+        const updateQuery = 'UPDATE pending_reservations SET status = ? WHERE id = ?';
+        db.query(updateQuery, [status, id], (err, result) => {
+            if (err) {
+                console.error('Error updating reservation status:', err);
+                return res.status(500).json({ error: 'Internal server error' });
+            }
+
+            if (result.affectedRows === 0) {
+                return res.status(404).json({ error: 'Reservation not found' });
+            }
+
+            return res.status(200).json({ message: 'Reservation status updated successfully' });
+        });
+    }
 });
 
 
@@ -194,7 +230,7 @@ app.put('/data/:id', (req, res) => {
                 });
             });
         });
-    } else {
+    } else if (status === 'declined') {
         const updateQuery = 'UPDATE pending_reservations SET status = ? WHERE id = ?';
         db.query(updateQuery, [status, id], (err, result) => {
             if (err) {

@@ -40,12 +40,8 @@ const Reservations = () => {
             const response = await axios.put(`http://localhost:8081/data/${id}`, { status: 'declined' });
             console.log('Decline response:', response.data);
 
-            setPendingReservations(prevState => prevState.map(res => {
-                if (res.id === id) {
-                    return { ...res, status: 'declined' };
-                }
-                return res;
-            }));
+            // Fetch updated reservations from the backend
+            await fetchReservations();
         } catch (error) {
             console.error('Error declining reservation:', error);
         }
